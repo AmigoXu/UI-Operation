@@ -31,6 +31,8 @@ public class ExcelUtil {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} 
+		
+		
 		if (wd != null) {
 			try {
 				wd.close();

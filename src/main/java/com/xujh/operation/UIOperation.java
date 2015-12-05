@@ -63,5 +63,15 @@ public class UIOperation {
 		sb.append("$(\""+ css +"\").click();");
 		jse.executeScript(sb.toString());
 	}
+	
+	public boolean isElementPresent(By by) {
+		try {
+			driver.findElement(by);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 }

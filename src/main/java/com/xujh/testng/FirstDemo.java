@@ -3,20 +3,24 @@ package com.xujh.testng;
 import java.io.File;
 import java.util.List;
 
-import org.junit.Ignore;
+import java_cup.runtime.lr_parser;
+
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
+import com.thoughtworks.selenium.Selenium;
 import com.xujh.operation.UIOperation;
+//import static org.testng.AssertJUnit.*;
 
 public class FirstDemo {
 	
@@ -92,9 +96,35 @@ public class FirstDemo {
 		// Move cursor to the Main Menu Element
 		builder.moveToElement(driver.findElement(By.cssSelector(css0))).perform();
 		// Giving 5 Secs for submenu to be displayed
-		Thread.sleep(5000L);
+		Thread.sleep(5000);
 		// Clicking on the Hidden SubMenu
 		driver.findElement(By.cssSelector(css1)).click();
+	}
+	
+	@Test
+	public void verify() {
+		driver.get("http://www.baidu.com");
+		UIOperation uio = new UIOperation(driver);
+		Assert.assertTrue(uio.isElementPresent(By.id("weather-mod")));
+		Assert.assertTrue(uio.isElementPresent(By.className("everyday-item")));
+		driver.get("https://www.google.com/webhp?hl=zh-CN");
+		
+	}
+	
+	@Test
+	public void softverify() {
+		driver.get("http://www.baidu.com");
+		UIOperation uio = new UIOperation(driver);
+		SoftAssert softAssert = new SoftAssert();
+		WebElement e = driver.findElement(By.className("city-wather"));
+		String string = e.getAttribute("href");
+		System.out.println(string);
+		softAssert.assertTrue(uio.isElementPresent(By.id("weather-mod")), "first");
+		softAssert.assertTrue(uio.isElementPresent(By.className("everyday-item")), "second");
+		System.out.println("xxxxxxxxxxxxxxxxxxxx"+uio.isElementPresent(By.className("everyday-item")));
+		driver.get("https://www.google.com/webhp?hl=zh-CN");
+		softAssert.assertAll();
+		
 	}
 	
 	@BeforeTest
@@ -109,6 +139,7 @@ public class FirstDemo {
 	@AfterTest
 	public void tearDown() {
 		driver.close();
+		
 	}
 
 }

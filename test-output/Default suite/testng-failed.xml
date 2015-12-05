@@ -5,8 +5,8 @@
     <classes>
       <class name="com.xujh.testng.FirstDemo">
         <methods>
+          <include name="softverify"/>
           <include name="tearDown"/>
-          <include name="dealInvisible2"/>
           <include name="setUp"/>
         </methods>
       </class> <!-- com.xujh.testng.FirstDemo -->
